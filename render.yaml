@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: backend-service
+    env: node
+    plan: free
+    repo: https://github.com/Rajeswari-Machina/project_task_management_system/backend
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGODB_URI
+        value: ${MONGODB_URI}
+      - key: JWT_SECRET
+        value: ${JWT_SECRET}
+      - key: PORT
+        value: ${PORT}
