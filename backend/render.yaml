@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: backend-service
+    env: node
+    plan: free
+    repo: https://github.com/your-username/your-backend-repo
+    branch: main
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        value: mongodb+srv://rajeswarimachina02:rajimachina@cluster0.4xiqwww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: raji123
+      - key: PORT
+        value: 8000
