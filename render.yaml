@@ -3,7 +3,7 @@ services:
     name: backend-service
     env: node
     plan: free
-    repo: https://github.com/Rajeswari-Machina/project_task_management_system/backend
+    repo: https://github.com/Rajeswari-Machina/project_task_management_system
     branch: main
     buildCommand: npm install
     startCommand: node server.js
