@@ -8,7 +8,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:7000/api/auth/users',{withCredentials:true});
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/auth/users`,{withCredentials:true});
         setUsers(response.data);
       } catch (err) {
         setError('Failed to fetch users');
