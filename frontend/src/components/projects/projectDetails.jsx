@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-const API_URL = import.meta.env.VITE_API_URL;
 const ProjectDetails = () => {
   const { projectId } = useParams();
   const [project, setProject] = useState(null);
@@ -11,7 +10,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/projects/${projectId}`,{withCredentials:true});
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/projects/${projectId}`,{withCredentials:true});
         setProject(response.data);
       } catch (err) {
         setError('Failed to fetch project details.');

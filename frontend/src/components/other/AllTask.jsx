@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-const API_URL = import.meta.env.VITE_API_URL;
 const AllTask = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/tasks/`,{withCredentials:true}); 
+        const response = await fetch(`https://backend-service-m0q3.onrender.com/api/tasks/`,{withCredentials:true}); 
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }

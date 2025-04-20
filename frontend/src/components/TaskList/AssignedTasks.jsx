@@ -11,7 +11,7 @@ const AssignedTasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`http://localhost:7000/api/tasks/${userId}`);
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${userId}`);
         setTasks(response.data);
         setLoading(false);
       } catch (err) {

@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import CommentsSection from '../Comments';
-
-const API_URL = import.meta.env.VITE_API_URL;
 const TaskDetails = () => {
   const { taskId } = useParams();
   const [task, setTask] = useState(null);
@@ -11,7 +9,7 @@ const TaskDetails = () => {
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/tasks/${taskId}`,{withCredentials:true});
+        const res = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${taskId}`,{withCredentials:true});
         setTask(res.data);
       } catch (err) {
         console.error('Error fetching task details:', err);

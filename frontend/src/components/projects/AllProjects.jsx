@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-const API_URL = import.meta.env.VITE_API_URL;
 const AllProjects = () => {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState('');
@@ -9,7 +8,7 @@ const AllProjects = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/projects/`, {
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/projects/`, {
           withCredentials: true,
         });
         setProjects(response.data);
