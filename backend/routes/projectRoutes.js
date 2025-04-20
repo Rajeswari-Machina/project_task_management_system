@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
+
+const { createProject, getAllProjects,getProjectById } = require('../controllers/projectController');
 const auth = require('../middlewares/authMiddleware');
 const role = require('../middlewares/roleMiddleware');
-const { createProject, getAllProjects } = require('../controllers/projectController');
 
-router.post('/', auth, role('admin'), createProject);
-router.get('/', auth, getAllProjects);
+router.post('/',auth,role('admin'), createProject);
+router.get('/',auth, getAllProjects);
+router.get('/:projectId', getProjectById);
 
 module.exports = router;

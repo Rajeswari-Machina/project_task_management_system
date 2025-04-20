@@ -9,4 +9,15 @@ const projectSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+projectSchema.virtual("username", {
+  ref: "User",
+  localField: "createdBy",
+  foreignField: "_id",
+  justOne: true,
+  options: { select: 'name' },
+});
+
+projectSchema.set("toObject", { virtuals: true });
+projectSchema.set("toJSON", { virtuals: true });
+
 module.exports = mongoose.model("Project", projectSchema);

@@ -20,14 +20,37 @@ exports.getTasksByProject = async (req, res) => {
     const { projectId } = req.params;
     const { status, priority, assignedTo } = req.query;
 
-    let query = { projectId };
+    let query = { projectId: projectId };
 
     if (status) query.status = status;
     if (priority) query.priority = priority;
     if (assignedTo) query.assignedTo = assignedTo;
 
-    const tasks = await Task.find(query);
+    const tasks = await Task.find({ projectId: projectId })
+      .populate('projectId', 'title') 
+      .populate('assignedTo', 'name');
+    console.log(tasks);
     res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+exports.getAssignedTasks = async(req,res)=>{
+  const userId = req.params.userId
+  try{
+    const assignedTasks = await Task.find({assignedTo:userId })
+    console.log(tasks);
+    res.status(200).json(task)
+  }catch(err){
+    res.status(200).json(assignedTasks)
+  }
+}
+exports.getTaskDetails = async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.taskId)
+    if (!task) return res.status(404).json({ error: 'Task not found' });
+    console.log(task);
+    res.status(200).json(task);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -65,3 +88,11 @@ exports.getUserTasks = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+exports.getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find();
+    res.status(200).json(tasks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
