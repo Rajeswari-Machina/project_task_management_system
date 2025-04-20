@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-
+const API_URL = import.meta.env.VITE_API_URL;
 const CommentsSection = ({ taskId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
 
   const fetchComments = async () => {
     try {
-      const res = await axios.get(`http://localhost:7000/api/comments/${taskId}`);
+      const res = await axios.get(`https://backend-service-m0q3.onrender.com/api/comments/${taskId}`,{withCredentials:true});
       setComments(res.data);
       console.log(comments);
     } catch (err) {
@@ -20,7 +20,13 @@ const CommentsSection = ({ taskId }) => {
     if (!newComment.trim()) return;
 
     try {
-      const res = await axios.post(`http://localhost:7000/api/comments/${taskId}`, {
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/comments/${taskId}`, {withCredentials:true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },{
+        content: newComment
+      },{
         content: newComment,
       });
       setComments((prev) => [...prev, res.data]);

@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-
 axios.defaults.withCredentials = true; 
 
 export const AuthContext = createContext();
@@ -9,11 +8,16 @@ export const useAuth = () => useContext(AuthContext);
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ user: null, loading: true });
+ 
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get('http://localhost:7000/api/auth/me',{widthCredentials:'true'}); // 👈 fetch user using token cookie
+        const res = await axios.get(`https://backend-service-m0q3.onrender.com/api/auth/me`,{
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }},); 
         setAuth({ user: res.data.user, loading: false });
       } catch (err) {
         console.error('Auth fetch failed:', err);
@@ -25,7 +29,11 @@ const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post('http://localhost:7000/api/auth/login',{ email, password });
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/login`,{
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        }},{ email, password });
       setAuth({ user: res.data.user, loading: false });
       alert(res.data.message);
     } catch (err) {
@@ -38,7 +46,11 @@ const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       
-      const res = await axios.post('http://localhost:7000/api/auth/register', userData);
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/register`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        }},userData);
       setAuth({ user: res.data.user, loading: false });
     } catch (err) {
       console.error('Registration error:', err);
@@ -48,7 +60,7 @@ const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axios.get('http://localhost:7000/api/auth/logout',  {
+      await axios.get(`https://backend-service-m0q3.onrender.com/api/auth/logout`,  {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
@@ -63,7 +75,7 @@ const AuthProvider = ({ children }) => {
 
   const createProject = async (projectData) => {
     try {
-      const res = await axios.post('http://localhost:7000/api/projects/',{withCredentials:true}, projectData);
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/projects/`,{withCredentials:true}, projectData);
       return res.data;
     } catch (err) {
       console.error('Project creation error:', err);

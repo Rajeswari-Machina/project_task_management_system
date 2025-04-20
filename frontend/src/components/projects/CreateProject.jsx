@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-
+const API_URL = import.meta.env.VITE_API_URL;
 const CreateProject = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -9,7 +9,7 @@ const CreateProject = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:7000/api/projects',
+        `${API_URL}/api/projects`,
         { title, description },
         { withCredentials: true }
       );

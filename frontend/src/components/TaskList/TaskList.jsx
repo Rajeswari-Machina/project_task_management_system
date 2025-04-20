@@ -13,7 +13,7 @@ const TaskList = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`http://localhost:7000/api/tasks/${projectId}`, { withCredentials: true });
+      const res = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${projectId}`, { withCredentials: true });
       setTasks(res.data);
     } catch (err) {
       console.error('Error fetching tasks:', err);

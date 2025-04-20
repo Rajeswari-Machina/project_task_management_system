@@ -52,7 +52,6 @@ const Navbar = ({ user }) => {
           <Link to="/">MyApp</Link>
         </div>
 
-        {/* Desktop links */}
         <div className="hidden md:flex space-x-6">
           {navLinks.map((link) => (
             <Link
@@ -74,7 +73,7 @@ const Navbar = ({ user }) => {
           
         </div>
 
-        {/* Mobile menu button */}
+       
         <div className="md:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
             <svg
