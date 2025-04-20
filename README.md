@@ -4,7 +4,6 @@ A full-stack web application built with the MERN (MongoDB, Express.js, React, No
 
 ###  Live Links
 - Frontend: [Project GitHub Repository](https://github.com/Rajeswari-Machina/project_task_management_system)
-
 -  Backend Hosted URL: [Render Deployment](https://backend-service-m0q3.onrender.com/)
 
 ---
@@ -61,4 +60,3 @@ cd fontend
 npm install
 npm run dev
 
-###
