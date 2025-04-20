@@ -29,11 +29,11 @@ const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/login`,{
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/login`,{ email, password },{
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-        }},{ email, password });
+        }});
       setAuth({ user: res.data.user, loading: false });
       alert(res.data.message);
     } catch (err) {
@@ -46,11 +46,11 @@ const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       
-      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/register`, {
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/auth/register`,userData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json',
-        }},userData);
+        }});
       setAuth({ user: res.data.user, loading: false });
     } catch (err) {
       console.error('Registration error:', err);
@@ -75,7 +75,7 @@ const AuthProvider = ({ children }) => {
 
   const createProject = async (projectData) => {
     try {
-      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/projects/`,{withCredentials:true}, projectData);
+      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/projects/`, projectData,{withCredentials:true});
       return res.data;
     } catch (err) {
       console.error('Project creation error:', err);
