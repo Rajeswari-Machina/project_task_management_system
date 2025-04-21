@@ -11,12 +11,12 @@ const {
   getTaskDetails,
 } = require('../controllers/taskController');
 
+router.get('/',  getAllTasks);
 router.post('/:projectId', auth, createTask);
 router.get('/:projectId', auth, getTasksByProject);
-router.get('/:userId',getAssignedTasks);
+router.get('/assigned/:userId',getAssignedTasks);
 router.put('/:taskId/status', auth, updateTaskStatus);
 router.delete('/:taskId',  deleteTask);
 router.get('/:taskId',auth, getTaskDetails);
-router.get('/',  getAllTasks);
 
 module.exports = router;
