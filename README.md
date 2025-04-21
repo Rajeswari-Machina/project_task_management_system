@@ -6,6 +6,7 @@ A full-stack web application built with the MERN (MongoDB, Express.js, React, No
 - Frontend: [render Deployment](https://project-task-management-system.onrender.com/)
 -  Backend Hosted URL: [Render Deployment](https://backend-service-m0q3.onrender.com/)
 -  postman Documentation : [published doc](https://documenter.getpostman.com/view/37122540/2sB2iwEZZo)
+-  frontend Design or preview : [readme](https://github.com/Rajeswari-Machina/project_task_management_system/tree/main/frontend#readme)
 
 ---
 
