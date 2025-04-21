@@ -35,16 +35,19 @@ exports.getTasksByProject = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-exports.getAssignedTasks = async(req,res)=>{
-  const userId = req.params.userId
-  try{
-    const assignedTasks = await Task.find({assignedTo:userId })
-    console.log(tasks);
-    res.status(200).json(task)
-  }catch(err){
-    res.status(200).json(assignedTasks)
+exports.getAssignedTasks = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log(req.params);
+    console.log(userId);
+    const assignedTasks = await Task.find({ assignedTo: userId })
+      .populate('projectId', 'title')
+      .populate('assignedTo', 'name');
+    res.status(200).json(assignedTasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-}
+};
 exports.getTaskDetails = async (req, res) => {
   try {
     const task = await Task.findById(req.params.taskId)

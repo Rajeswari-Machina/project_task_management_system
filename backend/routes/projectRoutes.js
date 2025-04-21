@@ -7,6 +7,6 @@ const role = require('../middlewares/roleMiddleware');
 
 router.post('/',auth,role('admin'), createProject);
 router.get('/',auth, getAllProjects);
-router.get('/:projectId', getProjectById);
+router.get('/:projectId',auth, getProjectById);
 
 module.exports = router;
