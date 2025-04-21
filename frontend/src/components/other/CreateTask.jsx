@@ -1,21 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 const CreateTask = () => {
     const [taskTitle, setTaskTitle] = useState('');
     const [taskDescription, setTaskDescription] = useState('');
     const [taskDate, setTaskDate] = useState('');
     const [asignTo, setAsignTo] = useState('');
     const [category, setCategory] = useState('');
+    const [priority, setPriority] = useState('Medium');
+    const [status, setStatus] = useState('Pending');
+    const [projectId, setProjectId] = useState('');
+    const [users, setUsers] = useState([]);
+    const [projects, setProjects] = useState([]);
 
-    const [newTask, setNewTask] = useState({});
+    useEffect(() => {
+        // Fetch users from the backend
+        axios.get('https://backend-service-m0q3.onrender.com/api/auth/users', {
+            withCredentials: true,
+        })
+        .then((response) => {
+            setUsers(response.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching users:', error);
+        });
+
+        // Fetch projects from the backend
+        axios.get('https://backend-service-m0q3.onrender.com/api/projects', {
+            withCredentials: true,
+        })
+        .then((response) => {
+            setProjects(response.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching projects:', error);
+        });
+    }, []);
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        setNewTask({ taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false });
+        const newTask = {
+            title: taskTitle,
+            description: taskDescription,
+            projectId,
+            assignedTo: asignTo,
+            status,
+            priority,
+        };
 
         axios.post(
-            `https://backend-service-m0q3.onrender.com/api/tasks/1`,
+            `https://backend-service-m0q3.onrender.com/api/tasks/${projectId}`,
             newTask,
             {
                 headers: {
@@ -36,6 +71,9 @@ const CreateTask = () => {
         setAsignTo('');
         setTaskDate('');
         setTaskDescription('');
+        setPriority('Medium');
+        setStatus('Pending');
+        setProjectId('');
     };
 
     return (
@@ -71,16 +109,21 @@ const CreateTask = () => {
                         />
                     </div>
                     <div>
-                        <h3 className='text-sm text-gray-300 mb-0.5'>Asign to</h3>
-                        <input
+                        <h3 className='text-sm text-gray-300 mb-0.5'>Assign to</h3>
+                        <select
                             value={asignTo}
                             onChange={(e) => {
                                 setAsignTo(e.target.value);
                             }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4'
-                            type='text'
-                            placeholder='employee name'
-                        />
+                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4 text-black'
+                        >
+                            <option value='' className='text-black' disabled>Select a user</option>
+                            {users.map((user) => (
+                                <option key={user._id} value={user._id} className='text-black'>
+                                    {user.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div>
                         <h3 className='text-sm text-gray-300 mb-0.5'>Category</h3>
@@ -94,6 +137,51 @@ const CreateTask = () => {
                             placeholder='design, dev, etc'
                         />
                     </div>
+                    <div>
+                        <h3 className='text-sm text-gray-300 mb-0.5'>Priority</h3>
+                        <select
+                            value={priority}
+                            onChange={(e) => {
+                                setPriority(e.target.value);
+                            }}
+                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4'
+                        >
+                            <option className='text-black'value='Low'>Low</option>
+                            <option className='text-black' value='Medium'>Medium</option>
+                            <option className='text-black'  value='High'>High</option>
+                        </select>
+                    </div>
+                    <div>
+                        <h3 className='text-sm text-gray-300 mb-0.5'>Status</h3>
+                        <select
+                            value={status}
+                            onChange={(e) => {
+                                setStatus(e.target.value);
+                            }}
+                            className='text-sm py-1 px-2 w-4/5 rounded text-black outline-none bg-transparent border-[1px] border-gray-400 mb-4'
+                        >
+                            <option className='text-black' value='Pending'>Pending</option>
+                            <option className='text-black'value='In Progress'>In Progress</option>
+                            <option className='text-black' value='Done'>Done</option>
+                        </select>
+                    </div>
+                    <div>
+                        <h3 className='text-sm text-gray-300 mb-0.5'>Project</h3>
+                        <select
+                            value={projectId}
+                            onChange={(e) => {
+                                setProjectId(e.target.value);
+                            }}
+                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4 text-black'
+                        >
+                            <option value=''className='text-black' disabled>Select a project</option>
+                            {projects.map((project) => (
+                                <option className='text-black' key={project._id} value={project._id}>
+                                    {project.title}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
 
                 <div className='w-2/5 flex flex-col items-start'>
@@ -103,7 +191,7 @@ const CreateTask = () => {
                         onChange={(e) => {
                             setTaskDescription(e.target.value);
                         }}
-                        className='w-full h-44 text-sm py-2 px-4 rounded outline-none bg-transparent border-[1px] border-gray-400'
+                        className='w-full h-44 text-sm py-2 px-4  rounded outline-none bg-transparent border-[1px] border-gray-400'
                         name=''
                         id=''
                     ></textarea>

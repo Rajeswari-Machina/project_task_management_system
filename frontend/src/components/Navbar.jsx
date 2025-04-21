@@ -33,7 +33,6 @@ const Navbar = ({ user }) => {
     ],
   
     member: [
-      { name: 'Tasks', path: '/tasks' },
       { name: 'projects', path: '/projects' },
       {name:'assignedTasks',path:'/assignedTasks'}
     ],

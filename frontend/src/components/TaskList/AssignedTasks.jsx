@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthProvider';
+
 const AssignedTasks = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const userId = user._id;
+  console.log(user);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,7 +13,12 @@ const AssignedTasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${userId}`);
+        console.log(userId)
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${userId}`,{withCredentials:true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
         setTasks(response.data);
         setLoading(false);
       } catch (err) {
@@ -54,6 +61,12 @@ const AssignedTasks = () => {
               <div>
                 <h2 className="text-lg font-semibold">{task.title}</h2>
                 <p className="text-sm text-gray-600">{task.description}</p>
+                <p className="text-sm text-gray-500">
+                  Project: <span className="font-medium">{task.projectName?.title || 'N/A'}</span>
+                </p>
+                <p className="text-sm text-gray-500">
+                  Assigned To: <span className="font-medium">{task.assignedToName?.name || 'N/A'}</span>
+                </p>
                 <p className="text-sm text-gray-500">
                   Status: <span className="font-medium">{task.status}</span>
                 </p>
