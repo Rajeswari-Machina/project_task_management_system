@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-const API_URL = import.meta.env.VITE_API_URL;
+
 const CommentsSection = ({ taskId }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
@@ -20,15 +20,16 @@ const CommentsSection = ({ taskId }) => {
     if (!newComment.trim()) return;
 
     try {
-      const res = await axios.post(`https://backend-service-m0q3.onrender.com/api/comments/${taskId}`, {withCredentials:true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },{
-        content: newComment
-      },{
-        content: newComment,
-      });
+      const res = await axios.post(
+        `https://backend-service-m0q3.onrender.com/api/comments/${taskId}`,
+        { content: newComment },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       setComments((prev) => [...prev, res.data]);
       setNewComment('');
     } catch (err) {
@@ -47,7 +48,9 @@ const CommentsSection = ({ taskId }) => {
       <div className="space-y-2">
         {comments.map((comment) => (
           <div key={comment._id} className="border p-2 rounded bg-gray-50">
-            <p className="text-sm text-black"><strong className="text-black">{comment.user?.name}</strong>: {comment.content}</p>
+            <p className="text-sm text-black">
+              <strong className="text-black">{comment.user?.name || 'Anonymous'}</strong>: <span className="text-black">{comment.content || 'No content available'}</span>
+            </p>
             <p className="text-xs text-gray-500">{new Date(comment.timestamp).toLocaleString()}</p>
           </div>
         ))}
