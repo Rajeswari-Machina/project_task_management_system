@@ -53,6 +53,7 @@ const AssignedTasks = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Assigned Tasks</h1>
+      console.log(tasks);
       {tasks.length === 0 ? (
         <p className="text-gray-500">No tasks assigned to you.</p>
       ) : (
@@ -63,19 +64,19 @@ const AssignedTasks = () => {
               className="p-4 border rounded-lg shadow-sm bg-white flex justify-between items-center"
             >
               <div>
-                <h2 className="text-lg font-semibold">{task.title}</h2>
-                <p className="text-sm text-gray-600">{task.description}</p>
+                <h2 className="text-lg font-semibold text-black">{task.title}</h2>
+                <p className="text-sm text-gray-600 text-black">{task.description}</p>
                 <p className="text-sm text-gray-500">
-                  Project: <span className="font-medium">{task.projectName?.title || 'N/A'}</span>
+                  Project: <span className="font-medium text-black">{task.projectId?.title || 'N/A'}</span>
                 </p>
                 <p className="text-sm text-gray-500">
-                  Assigned To: <span className="font-medium">{task.assignedToName?.name || 'N/A'}</span>
+                  Assigned To: <span className="font-medium text-black">{task.assignedTo?.name || 'N/A'}</span>
                 </p>
                 <p className="text-sm text-gray-500">
-                  Status: <span className="font-medium">{task.status}</span>
+                  Status: <span className="font-medium text-black">{task.status}</span>
                 </p>
                 <p className="text-sm text-gray-500">
-                  Priority: <span className="font-medium">{task.priority}</span>
+                  Priority: <span className="font-medium text-black">{task.priority}</span>
                 </p>
               </div>
               <div className="flex space-x-2">
