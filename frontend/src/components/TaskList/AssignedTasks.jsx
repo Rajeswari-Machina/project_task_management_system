@@ -5,7 +5,6 @@ import { useAuth } from '../../context/AuthProvider';
 const AssignedTasks = () => {
   const { user } = useAuth();
   const userId = user._id;
-  console.log(user);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,8 +12,7 @@ const AssignedTasks = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        console.log(userId)
-        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/${userId}`,{withCredentials:true,
+        const response = await axios.get(`https://backend-service-m0q3.onrender.com/api/tasks/assigned/${userId}`,{withCredentials:true,
           headers: {
             'Content-Type': 'application/json',
           },
@@ -32,7 +30,13 @@ const AssignedTasks = () => {
 
   const updateTaskStatus = async (taskId, newStatus) => {
     try {
-      await axios.put(`/api/tasks/${taskId}/status`, { status: newStatus });
+      await axios.put(`https://backend-service-m0q3.onrender.com/api/tasks/${taskId}/status`, 
+  { status: newStatus },
+  {
+    withCredentials: true,
+    headers: { 'Content-Type': 'application/json' }
+  });
+
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task._id === taskId ? { ...task, status: newStatus } : task
