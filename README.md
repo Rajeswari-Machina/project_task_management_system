@@ -3,7 +3,7 @@
 A full-stack web application built with the MERN (MongoDB, Express.js, React, Node.js) stack that allows users to manage tasks efficiently. This system includes features for task creation, assignment, tracking, and status management. Built with scalability, performance, and user-friendliness in mind.
 
 ###  Live Links
-- Frontend: [Project GitHub Repository](https://github.com/Rajeswari-Machina/project_task_management_system)
+- Frontend: [render Deployment](https://github.com/Rajeswari-Machina/project_task_management_system)
 -  Backend Hosted URL: [Render Deployment](https://backend-service-m0q3.onrender.com/)
 
 ---
@@ -53,10 +53,11 @@ git clone https://github.com/Rajeswari-Machina/project_task_management_system
 cd backend
 npm install
 npm run dev
+```
 
-### Backend
+### Frontend
 ```bash
 cd fontend
 npm install
 npm run dev
-
+```
